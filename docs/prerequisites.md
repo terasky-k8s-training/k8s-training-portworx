@@ -17,7 +17,7 @@ Access the [Portworx Central Site](https://central.portworx.com/landing/login)
 3. Design the Portworx cluster spec
     ![Spec Generator](images/spec_generator.png "Spec Generator")
 
-After completed all the steps you should get two yaml urls, Apply them.
+4. After completed all the steps you should get two yaml urls, Apply them.
 
 
 After applying them a few things are being created:
@@ -38,12 +38,12 @@ We can inspect its resources with:
 kubectl get pod -n kube-system
 ```
 
-For more detailed look:
+For a more detailed look:
 ```bash
 kubectl get storagecluster
 ```
 
-Another way we can inspect our cluster and preform administrative tasks is using the following cli's:
+Another way we can inspect our cluster and preform administrative tasks is using the following cli tools:
 - pxctl 
 - storkctl
 

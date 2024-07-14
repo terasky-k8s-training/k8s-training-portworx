@@ -1,52 +1,68 @@
 # Backup
 
 ##### In this capability we will:
-* backup an application (its resources and data). 
-* Back them up in a S3.
+* Create a Wordpress Application
+* Upload a post to see that the data is actully saved
+* Backup the application (its resources and data) to a s3. 
 * Delete the application and restore it.
+* See that the post still exists
 
 --- 
 
+## Prerequisites
+- A wordpress application.
 
-Inspect the previously created Wordpress environment
+  To install the wordpress application run:
+
+  ```bash
+  helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update
+  helm upgrade -i wordpress bitnami/wordpress -n wordpress --create-namespace --set global.storageClass=px-db
+  ```
+
+---
+
+Inspect the Wordpress application
 ```bash
 kubectl get pods,pvc -n wordpress
 ```
 <sup><strong>Note:</strong> Make sure the Wordpress environment is ready</sup>
 
------
+Now before starting the backup proccess we will first log in to the wordpress application and upload a post.
 
-Create backup location configuration
+To Access the UI
 ```bash
-BUCKET_NAME=$(kubectl get cm s3-name-config -n default -o jsonpath='{.data.bucket_name}')
+SERVICE_IP=$(kubectl get ingress wordpress -n wordpress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+echo "
+Details:
 
-cat <<EOF
-apiVersion: stork.libopenstorage.org/v1alpha1
-kind: BackupLocation
-metadata:
-  name: wordpress-backup
-  namespace: wordpress
-  annotations:
-    stork.libopenstorage.org/skipresource: "true"
-location:
-  type: s3
-  path: "$BUCKET_NAME"
-  secretConfig: s3secret
-  sync: true 
-EOF > poc-test/backup/backuplocation.yaml
+WordPress URL: http://$SERVICE_IP/
+WordPress Admin URL: http://$SERVICE_IP/wp-admin
+
+Credentials:
+Username: user
+Password: $(kubectl get secret --namespace wordpress wordpress -o jsonpath="{.data.wordpress-password}" | base64 -d)
+"
 ```
 
-Inspect the configuration files for the backup
+Access the Admin URL login with the credentials and upload a post.
 
-Create a [backup location](../snippets/backup/backuplocation.yaml) in a s3
+
+## Start Backup to S3
+
+Create a [secret](../snippets/backup/s3secret.yaml) with access info about the s3
 ```bash
-kubectl apply -f poc-test/backup/backuplocation.yaml
+kubectl apply -f ../snippets/backup/backuplocation.yaml
+```
+
+Create a [backup location](../snippets/backup/backuplocation.yaml) in the s3
+```bash
+kubectl apply -f ../snippets/backup/backuplocation.yaml
 storkctl get backuplocation -n wordpress
 ```
 
-Start the [backup](../snippets/backup/applicationbackup.yaml) to the S3
+Start the [application backup](../snippets/backup/applicationbackup.yaml) to the S3
 ```bash
-kubectl apply -f poc-test/backup/applicationbackup.yaml
+kubectl apply -f ../snippets/backup/applicationbackup.yaml
 watch storkctl get applicationbackup -n wordpress
 ```
 <sup><strong>Note:</strong> Wait for applicationbackup to finish!</sup>
@@ -66,7 +82,7 @@ kubectl get pods,pvc -n wordpress
 
 Restore the Wordpress environment, by applying the [applicationrestore](../snippets/backup/applicationrestore.yaml)
 ```bash
-kubectl apply -f poc-test/backup/applicationrestore.yaml
+kubectl apply -f ../snippets/backup/applicationrestore.yaml
 watch storkctl get applicationrestore -n wordpress
 ```
 <sup><strong>Note:</strong> Wait for applicationrestore to finish!</sup>

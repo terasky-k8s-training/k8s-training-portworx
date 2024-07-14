@@ -1,13 +1,12 @@
-# apiVersion: stork.libopenstorage.org/v1alpha1
-# kind: BackupLocation
-# metadata:
-#   name: wordpress-backup
-#   namespace: wordpress
-#   annotations:
-#     stork.libopenstorage.org/skipresource: "true"
-# location:
-#   type: s3
-#   path: "px-demo-workshop-s3"
-#   secretConfig: s3secret
-#   sync: true
-  
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: BackupLocation
+metadata:
+  name: wordpress-backup
+  namespace: wordpress
+  annotations:
+    stork.libopenstorage.org/skipresource: "true"
+location:
+  type: s3
+  path: "name-of-your-s3"
+  secretConfig: s3secret
+  sync: true
