@@ -6,9 +6,9 @@ In this lab, we will create an EKS cluster and install Portworx on it. We will p
 - Volume Expansion
 - Read Write Many
 - Volume Encryption
+- Benchmarking
 - Backup
 - High Availability
-- Benchmarking
 
 ## Folder Structure
 
@@ -31,7 +31,7 @@ In this lab, we will create an EKS cluster and install Portworx on it. We will p
     terraform delete --auto-approve
     ```
 
-- **docs**: Contains all the information you need to perform the tasks. [Link here](./docs)
+- **docs**: Contains all the information you might need to perform the tasks. [Link here](./docs)
 
 ## Links
 

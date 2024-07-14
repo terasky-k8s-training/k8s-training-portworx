@@ -8,16 +8,14 @@ After creating a Kubernetes cluster we are ready to install portworx and the oth
 
 Access the [Portworx Central Site](https://central.portworx.com/landing/login)
 
----
+1. After logining in, press "Get started"
+    ![Get started](images/getstarted.png "Get started")
 
-After logining in, press "Get started"
-![Get started](images/getstarted.png "Get started")
+2. Select "Portworx Enterprise"
+    ![Select License](images/licensing.png "Select License")
 
-Select "Portworx Enterprise"
-![Select License](images/licensing.png "Select License")
-
-Design the Portworx cluster spec
-![Spec Generator](images/spec_generator.png "Spec Generator")
+3. Design the Portworx cluster spec
+    ![Spec Generator](images/spec_generator.png "Spec Generator")
 
 After completed all the steps you should get two yaml urls, Apply them.
 
