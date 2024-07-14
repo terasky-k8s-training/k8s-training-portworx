@@ -19,9 +19,9 @@ module "eks_blueprints" {
 
       instance_types          = [var.instance_type]
       capacity_type           = var.capacity_type
-      min_size                = 4
-      desired_size            = 4
-      max_size                = 4
+      min_size                = var.instance_count
+      desired_size            = var.instance_count
+      max_size                = var.instance_count
       subnet_ids              = module.vpc.private_subnets
 
       tags = merge({
