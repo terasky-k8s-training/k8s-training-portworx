@@ -1,8 +1,8 @@
 # tf files
-./terraform/dev.tfvars
-./terraform/.terraform
-./terraform/*.tfstate
-./terraform/*.tfstate.*
-./terraform/*.tfvars
-./terraform/*.tfvars.json
-./terraform/.terraform.tfstate.lock.info
+terraform/dev.tfvars
+terraform/.terraform
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/*.tfvars
+terraform/*.tfvars.json
+terraform/.terraform.tfstate.lock.info
