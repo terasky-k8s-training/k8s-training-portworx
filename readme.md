@@ -12,10 +12,18 @@ In this lab, we will create an EKS cluster and install Portworx on it. We will p
 
 ## Folder Structure
 
-- **terraform**: Contains the specifications for creating an EKS cluster suited for Portworx installation. Before creating the cluster, please alter the values file. To create the cluster, run:
-  ```bash
-  terraform apply --auto-approve
-  ```
+- **terraform**: Contains the specifications for creating an EKS cluster suited for Portworx installation. 
+    Before creating the cluster, please alter the values file.
+
+    To create the cluster, run:
+    ```bash
+    terraform apply --auto-approve
+    ```
+
+    To delete the cluster, run:
+    ```bash
+    terraform delete --auto-approve
+    ```
 
 - **docs**: Contains all the information you need to perform the tasks. [Link here](./docs)
 
