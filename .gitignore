@@ -5,4 +5,5 @@ terraform/*.tfstate
 terraform/*.tfstate.*
 terraform/*.tfvars
 terraform/*.tfvars.json
+terraform/.terraform.lock.hcl
 terraform/.terraform.tfstate.lock.info

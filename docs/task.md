@@ -7,6 +7,10 @@ The objective of this assignment is to demonstrate various capabilities of Kuber
 
 ---
 
+## Prerequisites
+
+---
+
 ## Tasks
 1.  ##### Create Cluster-Wide Secret for Encryption Demonstration
     Create a cluster-wide secret to showcase the encryption capability of Portworx.

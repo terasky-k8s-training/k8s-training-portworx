@@ -24,7 +24,6 @@ variable "cluster_version" {
 
 variable "instance_count" {
   description = "Amount of nodes in the cluster"
-  type        = number
   default     = 4
 }
 
