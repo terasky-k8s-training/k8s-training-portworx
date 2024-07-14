@@ -7,6 +7,8 @@ After creating a Kubernetes cluster we are ready to install portworx and the oth
 
 Access the [Portworx Central Site](https://central.portworx.com/landing/login)
 
+---
+
 After logining in, press "Get started"
 ![Get started](images/getstarted.png "Get started")
 
@@ -28,7 +30,7 @@ After applying them a few things are being created:
 
 <sup><strong>Note:</strong> Wait for all the pods that are being created by the storagecluster to be ready.</sup>
 
-### Cluster Inspect tools
+### Cluster Inspection and administrative tools
 
 Now after creating the Portworx cluster we would like to inspect it.
 
@@ -46,7 +48,7 @@ Another way we can inspect our cluster and preform administrative tasks is using
 - pxctl 
 - storkctl
 
-##### Install pxctl and storkctl
+#### Install pxctl and storkctl
 
 For pxctl:
 ```bash
@@ -62,7 +64,7 @@ mv ./storkctl /usr/local/bin/storkctl
 chmod +x /usr/local/bin/storkctl
 ```
 
-##### Usage
+#### Usage
 
 Portworx cluster status:
 
