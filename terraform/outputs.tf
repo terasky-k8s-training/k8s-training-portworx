@@ -28,3 +28,8 @@ output "s3_user_access_key_secret" {
   value       = aws_iam_access_key.s3_user_access_key.secret
   sensitive = true
 }
+
+output "s3_user_instructions" {
+  description = "Instructions to retrieve the S3 user access key secret"
+  value       = "Please run `terraform output s3_user_access_key_secret` to get the S3 user access key secret."
+}

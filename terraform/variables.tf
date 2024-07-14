@@ -1,5 +1,5 @@
-variable "creator" {
-  description = "Name of creator"
+variable "owner" {
+  description = "Name of owner"
   type        = string
   default     = "your_name"
 }

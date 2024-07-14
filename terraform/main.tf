@@ -19,19 +19,18 @@ module "eks_blueprints" {
 
       instance_types          = [var.instance_type]
       capacity_type           = var.capacity_type
-      min_size                = var.instance_count
-      max_size                = var.instance_count
+      min_size                = 4
+      desired_size            = 4
+      max_size                = 4
       subnet_ids              = module.vpc.private_subnets
 
       tags = merge({
         "Name" = join("-", [var.cluster_name, "worker"])
       }, local.tags)
-      
     }
   }
 
   tags = local.tags
-
 }
 
 #---------------------------------------------------------------
@@ -49,11 +48,28 @@ module "eks_blueprints_addons" {
   oidc_provider_arn = module.eks_blueprints.eks_oidc_provider_arn
 
   eks_addons = {
-    aws-ebs-csi-driver = {
+    # aws-ebs-csi-driver = {
+    #   most_recent = true
+    # }
+    vpc-cni = {
+      most_recent = true
+    }
+    kube-proxy = {
       most_recent = true
     }
   }
 
   # Ingress Controller
   enable_aws_load_balancer_controller = var.aws_load_balancer_controller
+}
+
+
+#---------------------------------------------------------------
+# EKS Resources
+#---------------------------------------------------------------
+
+resource "kubernetes_namespace" "portworx-poc" {
+  metadata {
+    name = "portworx-poc"
+  }
 }

@@ -22,7 +22,7 @@ Access the [Portworx Central Site](https://central.portworx.com/landing/login)
 
 After applying them a few things are being created:
 
-- Portworx Oprator: Which integrates with Kubernetes through CRD's to provide seamless provisioning, lifecycle management, monitoring, and security for persistent storage resources within containerized environments.
+- Portworx Operator: Which integrates with Kubernetes through CRD's to provide seamless provisioning, lifecycle management, monitoring, and security for persistent storage resources within containerized environments.
 
 - Portworx StorageCluster: The StorageCluster object provides a Kubernetes native experience. You can manage your Portworx cluster just like any other application running on Kubernetes. That is, if you create or edit the StorageCluster object, the operator will create or edit the Portworx cluster in the background.
 

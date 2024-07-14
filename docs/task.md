@@ -1,52 +1,142 @@
-# Assignment
+# Assignment: Comprehensive Portworx Exercise
+
+### Objective
+
+Demonstrate various Portworx features by performing tasks related to dynamic provisioning, volume management, scalability, failure injection.
+
+### Prerequisites
+
+- A running Kubernetes cluster with [Portworx installed](./prerequisites.md).
+<!-- - A pre-installed WordPress application deployed on the EKS cluster.
+    To install:
+    ```bash
+    helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update
+    helm upgrade -i wordpress bitnami/wordpress -n wordpress --create-namespace --set global.storageClass=px-db
+    ``` -->
+---
+
+### Tasks
+
+1. **Cluster-wide Encryption**  
+
+    **Scenario**: Create [Cluster-Wide Secret](./readmes/volume-encryption.md) for Encryption Demonstration
+
+    **Action**:
+    - Create a cluster-wide secret to showcase the encryption capability of Portworx.
+    - Create a secure [storage class](./snippets/encrypted-pvc/storage-class.yaml)
+
+    **Expected Result**: A secure storage class that will be used as the storage class of Wordpress.
+
+2. **Dynamically Provision Volumes**
+
+   **Scenario**: Setup dynamic provisioning and storage classes for WordPress.
+
+   **Action**: 
+   - Use the secure StorageClass and create a WordPress application.
+        To install:
+        ```bash
+        helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update
+        helm upgrade -i wordpress bitnami/wordpress -n wordpress --create-namespace --set global.storageClass=<name-of-your-encrypted-storageclass>
+        ```
+   - Verify that the created PVC is dynamically provisioned.
+
+   **Expected Result**: Dynamic provisioning of PVCs is functioning correctly. The PVC should be bound and the volume should be created.
+
+3. **Shared Volume (ReadWriteMany)**
+
+   **Scenario**: Mount the same volume in different PODs at the same time.
+
+   **Action**:
+   - Scale up the wordpress application to 4 pods.
+   - Make sure the application keeps using the pvc even though 4 pods are using it.
+
+   **Expected Result**: Data is written simultaneously from different pods.
+
+
+### Scalability
+
+1. **Grow a Volume**
+
+   **Scenario**: Increase the volume size by [patching the PVC spec](./readmes/dynamic-provision.md).
+
+   **Action**:
+   - Edit the PVC used by WordPress to request more storage.
+   - Verify that the volume has been resized.
+   - Inspect the volume to see more information about it.
+   - Make sure the file system of the pod also got resized (by using df -h).
+
+   **Expected Result**: The volume size is increased without downtime.
+
+2. **Automatically Grow a Volume**
+
+   **Scenario**: Configure an [Autopilot](./readmes/dynamic-provision.md) rule to expand storage claims.
+
+   **Action**:
+   - Set up an Autopilot rule to automatically expand the WordPress PVC when storage usage reaches a certain threshold. 
+   - Verify that volume capacity is increased according to set rules.
+
+   **Expected Result**: The volume capacity increases automatically when the set threshold is reached.
+
+3. **Scale up a Storage Pool**
+
+   **Scenario**: Increase the pool size by adding disks.
+
+   **Action**:
+   - Add new disks to the Portworx storage pool.
+   - Verify that the drives are added to the storage pool.
+
+   **Expected Result**: The storage pool size increases as new disks are added.
+
+
+4. **Scale out a Storage Cluster**
+
+   **Scenario**: Add a new node to the storage cluster.
+
+   **Action**:
+   - Add a new node to the Portworx cluster.
+   - Verify that PX automatically installs and increases total storage capacity.
+
+   **Expected Result**: The new node is added and storage capacity is increased.
+
+5. **Solution Lifecycle**
+
+   **Scenario**: Upgrade the Portworx version in the cluster.
+
+   **Action**:
+   - Upgrade the Portworx version.
+   - Verify that the upgrade was successful and no issues are detected for running applications.
+
+   **Expected Result**: The Portworx version is upgraded successfully without any issues.
+
+
+
+### Failure Injection
+
+1. **Simulate Node Failure**
+
+   **Scenario**: Take down a single storage node in the cluster.
+
+   **Action**:
+   - Inspect the volume of the application and identify the node its currently running on (use storkctl).
+   - Simulate a [node failure](./readmes/HA.md) by shutting down the previously discorverd node that the application currently running on.
+   - Verify that the WordPress DB restarts on a secondary node with all the data.
+   - Inspect again the volume.
+
+   **Expected Result**: The DB restarts on a secondary node without data loss.
+
+2. **Application HA**
+
+   **Scenario**: Delete a stateful pod.
+
+   **Action**:
+   - Delete the WordPress pods.
+   - Verify that they are re-scheduled and remains alive.
+
+   **Expected Result**: The WordPress pod is re-scheduled and remains functional.
+
 
 ---
 
-## Objective
-The objective of this assignment is to demonstrate various capabilities of Kubernetes and Portworx, including encryption, read-write operations, Autopilot policy creation, benchmarking, and backup and restore procedures.
+### Conclusion
 
----
-
-## Prerequisites
-
----
-
-## Tasks
-1.  ##### Create Cluster-Wide Secret for Encryption Demonstration
-    Create a cluster-wide secret to showcase the encryption capability of Portworx.
-
-2.  ##### Create Two Deployments
-    One deployment will read data from the encrypted persistent volume claim (PVC).
-    Another deployment will write data to the encrypted PVC.
-    This task aims to demonstrate the read-write capability of the system.
-
-    * deployment 1: deploy-read
-    * deployment 2: deploy-write
-    * pvc: pvc-poc
-    * namespace: portworx-poc
-
-3.  ##### Create an Autopilot Policy.
-    Create an Autopilot policy that triggers expansion when the PVC consumption reaches 80%. To verify the functionality:
-
-    Generate a file that gradually consumes storage space.
-
-    ```execute
-    head -c 550M </dev/urandom > /var/www/html/bigfile
-    ```
-
-    Monitor the PVC and file system growth.
-    ```execute
-    watch kubectl get events --field-selector involvedObject.kind=AutopilotRule,involvedObject.name=ap-rule-poc -A
-    ```
-
-    This task will demonstrate the Autopilot feature's ability to dynamically scale storage.
-
-    * autopilot rule: ap-rule-poc
-    * pvc: pvc-poc
-    * namespace: portworx-poc
-
-4.  ##### Backup and Restore Procedure
-    Backup the application data, delete the PVC, and restore it. This step will test the backup and restore functionality.
-
-    <sup><strong>Note:</strong> Use the existing s3 - use the s3secret to access it.</sup>
-
+By the end of this task, you will have a comprehensive understanding of how to leverage Portworx features, including dynamic provisioning, scalability, failure handling, and monitoring. This hands-on experience will solidify your knowledge and skills in managing cloud-native storage solutions using Portworx.

@@ -16,7 +16,7 @@ kubectl get sc px-sc-repl-rwx
 Create [deployment](../snippets/rwx/deployment.yaml) and [pvc](../snippets/rwx/pvc.yaml):
 ```bash
 kubectl apply -f ../snippets/rwx/pvc.yaml 
-kubectl apply -f ../snippets/rwx/deployment.yaml 2>/dev/null
+kubectl apply -f ../snippets/rwx/deployment.yaml
 ```
 
 Save labels
