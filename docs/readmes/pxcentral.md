@@ -1,4 +1,4 @@
-## PX-Central/PX-Backup
+# PX-Central/PX-Backup
 
 ##### In this capability we will:
 * Install PX-central, PX-backup UI.
@@ -14,9 +14,9 @@ helm repo add portworx http://charts.portworx.io/ && helm repo update
 helm install px-central portworx/px-central --namespace px-central --create-namespace --version 2.6.0 --set persistentStorage.enabled=true,persistentStorage.storageClassName="px-db",pxbackup.enabled=true
 ```
 
-Expose the px-central and px-backup service
+Expose the px-central and px-backup [service](../snippets/px-central/ingress.yaml)
 ```bash
-kubectl apply -f poc-test/px-central/ingress.yaml
+kubectl apply -f ../snippets/px-central/ingress.yaml
 ```
 
 Check that the PX-central is ready

@@ -1,4 +1,4 @@
-## Benchmarking
+# Benchmarking
 
 ##### In this capability we will:
 * Create a storage class with high IO. 
@@ -8,7 +8,7 @@
 
 --- 
 
-Create the storage class
+Create the [storage class](../snippets/benchmark/resources/portworx-sc-high-io.yaml)
 ```bash
 kubectl apply -f poc-test/benchmark/resources/portworx-sc-high-io.yaml
 ```

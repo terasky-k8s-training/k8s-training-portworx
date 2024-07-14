@@ -6,36 +6,17 @@ For this, we need to create an appropriate StorageClass and specifiy the RWX acc
 
 --- 
 
+
+Create the [storageclass](../snippets/rwx/storage-class.yaml)
 ```bash
-kubectl config use-context $CLUSTER_TKG
-clear
-```
-
-Create and View the Storage Class:
-```editor:open-file
-file: poc-test/rwx/storage-class.yaml
-```
-
-
-View the pvc and the deployment
-```editor:open-file
-file: poc-test/rwx/pvc.yaml
-```
-
-```editor:open-file
-file: poc-test/rwx/deployment.yaml
-```
-
-Create the storageclass
-```bash
-kubectl apply -f poc-test/rwx/storage-class.yaml
+kubectl apply -f ../snippets/rwx/storage-class.yaml
 kubectl get sc px-sc-repl-rwx
 ```
 
-Create deployment and pvc:
+Create [deployment](../snippets/rwx/deployment.yaml) and [pvc](../snippets/rwx/pvc.yaml):
 ```bash
-kubectl apply -f poc-test/rwx/pvc.yaml 
-kubectl apply -f poc-test/rwx/deployment.yaml 2>/dev/null
+kubectl apply -f ../snippets/rwx/pvc.yaml 
+kubectl apply -f ../snippets/rwx/deployment.yaml 2>/dev/null
 ```
 
 Save labels
@@ -74,7 +55,7 @@ pxctl volume inspect $VOLUME_ID
 ---
 
 ##### To test this capability:
-* We will create a file from both pods,
+* We will create a file from both pods that are hosted on different nodes,
 * Then list the dircetory in both pods to see if the files are there for each of them.
 
 Create file from pod 1

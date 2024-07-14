@@ -2,6 +2,7 @@
 
 After creating a Kubernetes cluster we are ready to install portworx and the other cli tools.
 
+---
 
 ### Portworx installation
 

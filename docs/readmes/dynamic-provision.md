@@ -1,21 +1,23 @@
 # Dynamic Provision & Volume Expansion & AutoPilot
 
 #### In this capability we will:
-- Dynamic Provision: Show Portworx most basic ability - attach a pvc to a pod.
+- Dynamic Provision: Show Portworx most basic ability - Attach a pvc to a pod.
 - Volume Expansion: Show Portworx ability to expend the size of pvc without downtime.
 - AutoPilot: Create a rule to automatically expand PVCs when they have low available space.
 
+---
+
 ## Dynamic Provision
 
-Apply the storage class:
+Apply the [storage class](../snippets/dynamic-provision/storage-class.yaml):
 ```bash
 kubectl apply -f snippets/dynamic-provision/storage-class.yaml
 ```
 
-Create the deployment and pvc:
+Create the [deployment](../snippets/dynamic-provision/deployment.yaml) and [pvc](../snippets/dynamic-provision/pvc.yaml):
 ```bash
-kubectl apply -f snippets/dynamic-provision/pvc.yaml 
-kubectl apply -f snippets/dynamic-provision/deployment.yaml
+kubectl apply -f ../snippets/dynamic-provision/pvc.yaml 
+kubectl apply -f ../snippets/dynamic-provision/deployment.yaml
 ```
 
 Save application labels
@@ -100,9 +102,9 @@ kubectl -n portworx-poc exec -it deploy/nginx-pvc -- sh -c "head -c 950M </dev/u
 kubectl -n portworx-poc exec -it deploy/nginx-pvc -- df -h /var/www/html
 ```
 
-Apply Auto Pilot rule
+Apply [Auto Pilot rule](../snippets/dynamic-provision/autopilotrule.yaml)
 ```bash
-kubectl apply -f poc-test/dynamic-provision/autopilotrule.yaml
+kubectl apply -f ../snippets/dynamic-provision/autopilotrule.yaml
 ```
 
 To know if it worked you can check the events to see if the action was successfull, and then inspect again the pvc.

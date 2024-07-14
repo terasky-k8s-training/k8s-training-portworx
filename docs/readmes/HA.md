@@ -1,18 +1,19 @@
 # High Availability
-In this capability we will run a simple pod with a pvc attached to it.
-The StorageClass will be with 3 replicas.
-Once the pod is running, we will kill the node that the pod is running on,
-and see that the data wasn't harmed.
 
-<sup><strong>Note:</strong> Running this capability may potentially affect the functionality of other features.</sup>
+In this capability we will:
+- create a simple pod with a pvc attached to it.
+- The StorageClass will be with 3 replicas.
+- Once the pod is running, we will kill the node that the pod is running on, and see that the data wasn't harmed.
+
+<sup><strong>Note:</strong> Running this capability may potentially affect the functionality of other features, So run it last.</sup>
 
 ---
 
-
-Create them
+Create the [storageclass](../snippets/ha/storage-class.yaml), [pvc](../snippets/ha/pvc.yaml), [deployment](../snippets/ha/deployment.yaml)
 ```bash
-kubectl apply -f poc-test/ha/storage-class.yaml
-kubectl apply -f poc-test/ha/deployment.yaml -f poc-test/ha/pvc.yaml 2>/dev/null
+kubectl apply -f ../snippets/ha/storage-class.yaml
+kubectl apply -f ../snippets/ha/pvc.yaml
+kubectl apply -f ../snippets/ha/deployment.yaml
 ```
 
 Save labels
@@ -39,14 +40,8 @@ Get essential data about the pod and pvc:
 ```bash
 NGINX_NODE_NAME=$(kubectl get pod -l $DEPLOY_LABEL -o wide | awk 'FNR==2 {print $7}')
 NGINX_NODE_IP=$(kubectl get no $NGINX_NODE_NAME -o wide | awk 'FNR==2  {print $7}')
-```
-
-```bash
 PVC_NAME=$(kubectl get pvc -l $PVC_LABEL -o json | jq -r '.items[0].spec.volumeName')
 VOLUME_ID=$(pxctl volume list | grep "$PVC_NAME" | awk '{print $1}')
-```
-
-```bash
 POD=$(kubectl get po -l $DEPLOY_LABEL -o name | head -1)
 VOL_MOUNT=$(kubectl get  $POD -o jsonpath="{.spec.containers[0].volumeMounts[0].mountPath}")
 ```
