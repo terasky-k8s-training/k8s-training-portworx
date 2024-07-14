@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-pvc
+  namespace: portworx-poc
+  labels:
+    app: nginx-pvc
+spec:
+  storageClassName: px-sc-repl
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi

@@ -1,0 +1,25 @@
+namespace: pwx-poc-benchmark
+pvc:
+  accessModes:
+    - ReadWriteOnce
+  storage: 100   # size in GB
+
+job:
+  name: dbench
+  labels: {}
+  backoffLimit: 4
+  restartPolicy: Never
+
+image:
+  name: dbench
+  tag: latest
+  # repository name in the registry
+  repository: datamachines/dbench
+  pullPolicy: Always
+
+env:
+  dbench_mountpoint: /data
+  dbench_quick: "yes"
+  fio_size: 1G
+  fio_offset_increment: 256M
+  fio_direct: "0"

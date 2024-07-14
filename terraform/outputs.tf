@@ -26,4 +26,5 @@ output "s3_user_access_key_id" {
 output "s3_user_access_key_secret" {
   description = "The secret access key for the S3 user"
   value       = aws_iam_access_key.s3_user_access_key.secret
+  sensitive = true
 }

@@ -3,7 +3,7 @@
 ---
 
 ## Objective
-The objective of this assignment is to demonstrate various capabilities of Kubernetes and Portworx, including encryption, read-write operations, Autopilot policy creation, and backup and restore procedures.
+The objective of this assignment is to demonstrate various capabilities of Kubernetes and Portworx, including encryption, read-write operations, Autopilot policy creation, benchmarking, and backup and restore procedures.
 
 ---
 
@@ -46,21 +46,3 @@ The objective of this assignment is to demonstrate various capabilities of Kuber
 
     <sup><strong>Note:</strong> Use the existing s3 - use the s3secret to access it.</sup>
 
-
-<!--
-
----
-
-## Check Assignment
-
-Check and see that every thing is working
-
-Note: Make sure all the names of the resources are the same
-
-```examiner:execute-test
-name: check-exercise-1
-title: Check Assignment
-timeout: 60
-
-
-``` -->

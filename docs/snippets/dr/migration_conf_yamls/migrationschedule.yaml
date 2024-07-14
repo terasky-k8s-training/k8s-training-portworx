@@ -1,0 +1,15 @@
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: MigrationSchedule
+metadata:
+  name: 5min-migrationschedule
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      suspended: false
+      clusterPair: migration-cluster-pair
+      includeResources: true
+      startApplications: false
+      namespaces:
+      - wordpress
+  schedulePolicyName: 5min-policy

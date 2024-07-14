@@ -1,0 +1,5 @@
+1. Follow the benchmarking job progress:
+    DBENCH_POD=$(kubectl -n {{ .Values.namespace }} get pods -l job-name={{ .Values.job.name }} -o=jsonpath='{.items[*].metadata.name}')
+    kubectl -n {{ .Values.namespace }} logs ${DBENCH_POD}
+2. Once the tests are finished, clean up the created resources:
+    helm delete -n {{ .Values.namespace }} {{ .Release.Name }}

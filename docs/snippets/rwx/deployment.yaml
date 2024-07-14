@@ -1,0 +1,32 @@
+
+apiVersion: "apps/v1"
+kind: Deployment
+metadata:
+  name: nginx-rwx
+  namespace: portworx-poc
+  labels:
+    app: nginx-pvc-rwx
+spec:
+  selector:
+    matchLabels:
+      app: nginx-pvc-rwx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-pvc-rwx
+    spec:
+      schedulerName: stork
+      containers:
+      - name: nginx
+        image: nginxinc/nginx-unprivileged
+        ports:
+          - containerPort: 8080
+        volumeMounts:
+          - mountPath: "/var/www/html"
+            name: nginx-pvc
+        resources: {}
+      volumes:
+      - name: nginx-pvc
+        persistentVolumeClaim:
+          claimName: nginx-pvc-rwx

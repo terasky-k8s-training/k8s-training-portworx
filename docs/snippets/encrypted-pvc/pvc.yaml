@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-encrypted-pvc
+  namespace: portworx-poc
+  labels:
+    app: nginx-encrypted-pvc
+spec:
+  storageClassName: encrypted-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

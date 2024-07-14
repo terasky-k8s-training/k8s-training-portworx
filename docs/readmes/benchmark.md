@@ -1,3 +1,5 @@
+## Benchmarking
+
 ##### In this capability we will:
 * Create a storage class with high IO. 
 * Run a pod and install on it dbench.
@@ -6,26 +8,15 @@
 
 --- 
 
-```execute
-kubectl config use-context $CLUSTER_TKG
-clear
-```
-
-Inspect the Portworx storage class
-```editor:open-file
-file: poc-test/benchmark/resources/portworx-sc-high-io.yaml
-```
-<sup><strong>Note:</strong> we have set the io to high</sup>
-
-
 Create the storage class
-```execute
+```bash
 kubectl apply -f poc-test/benchmark/resources/portworx-sc-high-io.yaml
 ```
+On this storage class we will preform the IO tests.
 
 
 Install the helm chart
-```execute
+```bash
 helm install -n pwx-poc-benchmark --create-namespace "dbench-portworx-sc-high-io" "poc-test/benchmark/charts/dbench" \
     --set job.name="dbanch-portworx-sc-high-io-job" \
     --set namespace="pwx-poc-benchmark" \
@@ -42,13 +33,12 @@ With this chart we have done the following:
 
 ##### Inspect the preformance 
 
-
-```execute
+```bash
 kubectl wait --for=condition=complete --timeout=5m -n pwx-poc-benchmark job/dbanch-portworx-sc-high-io-job
 ```
 <sup><strong>Note:</strong> Takes a few momenets before all the tests are done</sup>
 
-```execute
+```bash
 DBENCH_POD=$(kubectl -n pwx-poc-benchmark get pods -l job-name=dbanch-portworx-sc-high-io-job -o=jsonpath='{.items[*].metadata.name}')
 kubectl -n pwx-poc-benchmark logs ${DBENCH_POD}
 ```

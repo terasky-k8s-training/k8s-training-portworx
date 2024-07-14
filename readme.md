@@ -17,7 +17,13 @@ In this lab, we will create an EKS cluster and install Portworx on it. We will p
 
     To create the cluster, run:
     ```bash
+    terraform init 
     terraform apply --auto-approve
+    ```
+    
+    To access the cluster, run:
+    ```bash
+    aws eks update-kubeconfig --name <name_of_cluster> --region <region_of_cluster>
     ```
 
     To delete the cluster, run:

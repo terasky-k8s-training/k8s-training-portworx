@@ -1,0 +1,40 @@
+apiVersion: "apps/v1"
+kind: Deployment
+metadata:
+  name: nginx-pvc
+  namespace: portworx-poc
+  labels:
+    app: nginx-pvc
+spec:
+  selector:
+    matchLabels:
+      app: nginx-pvc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-pvc
+    spec:
+      schedulerName: stork
+      containers:
+      - name: nginx
+        image: nginxinc/nginx-unprivileged
+        ports:
+          - containerPort: 8080
+        volumeMounts:
+          - mountPath: "/var/www/html"
+            name: nginx-pvc
+        resources: {}
+        # securityContext:
+        #   allowPrivilegeEscalation: false
+        #   capabilities:
+        #     drop:
+        #       - ALL
+        #   seccompProfile:
+        #     type: RuntimeDefault
+        #   runAsNonRoot: true
+        #   runAsUser: 101
+      volumes:
+      - name: nginx-pvc
+        persistentVolumeClaim:
+          claimName: nginx-pvc

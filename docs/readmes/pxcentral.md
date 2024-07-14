@@ -1,42 +1,49 @@
+## PX-Central/PX-Backup
+
 ##### In this capability we will:
-* Access PX-central UI.
+* Install PX-central, PX-backup UI.
+* Access them.
 
 --- 
 
-```execute
-kubectl config use-context $CLUSTER_EKS_1
-clear
+#### Installation
+
+Install PX-central and PX-backup
+```bash
+helm repo add portworx http://charts.portworx.io/ && helm repo update
+helm install px-central portworx/px-central --namespace px-central --create-namespace --version 2.6.0 --set persistentStorage.enabled=true,persistentStorage.storageClassName="px-db",pxbackup.enabled=true
+```
+
+Expose the px-central and px-backup service
+```bash
+kubectl apply -f poc-test/px-central/ingress.yaml
 ```
 
 Check that the PX-central is ready
-```execute
+```bash
 kubectl wait --for=condition=complete --timeout=7m -n px-central job/pxcentral-post-install-hook
 ```
 <sup><strong>Note:</strong> Wait for it to be done.</sup>
 
-##### Explore PX Central
 
-```execute
-INGRESS_HOST=$(kubectl get ingress -n px-central px-central-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+##### Explore PX Central and PX Backup
 
-echo "Access PX-Central at: http://$INGRESS_HOST/"
+```bash
+PXCENTRAL_INGRESS_HOST=$(kubectl get ingress -n px-central px-central-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+echo "Access PX-Central at: http://$PXCENTRAL_INGRESS_HOST/"
 ```
 
 Login with the following credentials:
+- Username: admin
+- Password: admin
 
-    Username: admin
-    Password: admin / Aa123456
-
-In the PX Central After login in, add a cluster
+In PX Central After login in, add a cluster
 
 Gather Info about the cluster
-```execute
+```bash
 CLUSTER_NAME=$(kubectl get stc -n kube-system -o json | jq -r '.items[0].metadata.name')
 CLUSTER_ENDPOINT=$(kubectl get svc -n kube-system portworx-api -o json | jq -r '.spec.clusterIP')
-```
 
-Print it
-```execute
 echo "
 Cluster Name: $CLUSTER_NAME
 Cluster Endpoint: $CLUSTER_ENDPOINT

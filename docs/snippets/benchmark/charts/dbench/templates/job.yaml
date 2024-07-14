@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.job.name }}
+  {{- if .Values.job.labels }}
+  labels:
+    {{- range $k, $v := .Values.job.labels }}
+      {{ $k }}: {{ $v }}
+    {{- end }}
+  {{- end }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: {{ .Values.job.name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          {{- range $k, $v := .Values.env }}
+          {{- if $v }}
+          - name: {{ $k | upper }}
+            value: {{ $v | quote }}
+          {{- end }}
+          {{- end }}
+        volumeMounts:
+        - name: {{ .Values.job.name }}-pv
+          mountPath: {{ .Values.env.dbench_mountpoint }}
+      restartPolicy: {{ .Values.job.restartPolicy }}
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      volumes:
+      - name: {{ .Values.job.name }}-pv
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }}
+  backoffLimit: {{ .Values.job.backoffLimit }}

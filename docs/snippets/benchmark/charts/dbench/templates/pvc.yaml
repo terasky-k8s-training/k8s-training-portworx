@@ -1,0 +1,20 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.pvc.name }}
+  {{- if .Values.pvc.labels }}
+  labels:
+    {{- range $k, $v := .Values.pvc.labels }}
+      {{ $k }}: {{ $v }}
+    {{- end }}
+  {{- end }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  storageClassName: {{ .Values.pvc.storageClassName }}
+  accessModes:
+  {{- range .Values.pvc.accessModes }}
+    - {{ . }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.storage }}Gi
