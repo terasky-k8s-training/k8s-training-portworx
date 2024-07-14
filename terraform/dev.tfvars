@@ -1,0 +1,9 @@
+creator                      = "shlomih"
+region                       = "eu-west-1"
+cluster_name                 = "eks-portworx-lab"
+cluster_version              = "1.27"
+instance_count               = 4   
+instance_type                = "t2.large"
+capacity_type                = "SPOT"
+aws_load_balancer_controller = true
+s3_name                      = "eks-portworx-lab-s3"
