@@ -51,7 +51,7 @@ Another way we can inspect our cluster and preform administrative tasks is using
     - Backup and Restore: Back up applications and restore them when needed.
     - Scheduling Policies: Automate backups, snapshots, and migrations based on policies.
     - Resource Management: Monitor and manage storage resource usage.
-    Basic commands include viewing cluster info, creating volume snapshots, starting migrations, and managing backups. storkctl simplifies operations, improves data management, and enhances reliability for Kubernetes administrators.
+Basic commands include viewing cluster info, creating volume snapshots, starting migrations, and managing backups. storkctl simplifies operations, improves data management, and enhances reliability for Kubernetes administrators.
 
 #### Install pxctl and storkctl
 
