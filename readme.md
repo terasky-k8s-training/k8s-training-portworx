@@ -12,7 +12,7 @@ In this lab, we will create an EKS cluster and install Portworx on it. We will p
 
 ## Folder Structure
 
-- **terraform**: Contains the specifications for creating an EKS cluster suited for Portworx installation. 
+- **terraform**: Contains the specifications for creating an **EKS cluster suited for Portworx installation**. 
     Before creating the cluster, please alter the values file.
 
     To create the cluster, run:

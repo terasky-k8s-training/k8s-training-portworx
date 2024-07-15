@@ -7,13 +7,12 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 ### Prerequisites
 
 - A running Kubernetes cluster with [Portworx installed](./prerequisites.md).
-<!-- - A pre-installed WordPress application deployed on the EKS cluster.
-    To install:
-    ```bash
-    helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update
-    helm upgrade -i wordpress bitnami/wordpress -n wordpress --create-namespace --set global.storageClass=px-db
-    ``` -->
----
+  
+  **Action**: 
+  - namespace=kube-system
+  - version=3.0
+
+--
 
 ### Tasks
 
@@ -29,7 +28,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 
 2. **Dynamically Provision Volumes**
 
-   **Scenario**: Setup dynamic provisioning and storage classes for WordPress.
+   **Scenario**: Create a Wordpress application.
 
    **Action**: 
    - Use the secure StorageClass and create a WordPress application.
