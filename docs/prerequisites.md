@@ -44,14 +44,15 @@ kubectl get storagecluster
 ```
 
 Another way we can inspect our cluster and preform administrative tasks is using the following cli tools:
-- pxctl: The pxctl command-line tool for Portworx allows users to perform detailed management of Portworx resources cluster-wide. It enables management of volumes, snapshots, cluster resources, hosts, and software upgrades.
-- storkctl: storkctl is a command-line tool for managing Storage Orchestration for Kubernetes (Stork), enhancing Kubernetes' storage capabilities. It provides advanced data management and disaster recovery features, including:
+- pxctl: allows users to perform detailed management of Portworx resources cluster-wide. It enables management of volumes, snapshots, cluster resources, hosts, and software upgrades.
+
+- storkctl: is a command-line tool for managing Storage Orchestration for Kubernetes (Stork), enhancing Kubernetes' storage capabilities. It provides advanced data management and disaster recovery features, including:
     - Volume Snapshots: Create, list, and delete persistent volume snapshots.
     - Migration: Migrate applications and their data across clusters.
     - Backup and Restore: Back up applications and restore them when needed.
     - Scheduling Policies: Automate backups, snapshots, and migrations based on policies.
     - Resource Management: Monitor and manage storage resource usage.
-Basic commands include viewing cluster info, creating volume snapshots, starting migrations, and managing backups. storkctl simplifies operations, improves data management, and enhances reliability for Kubernetes administrators.
+
 
 #### Install pxctl and storkctl
 
