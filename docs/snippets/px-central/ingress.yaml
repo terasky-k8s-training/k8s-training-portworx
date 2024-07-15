@@ -4,9 +4,9 @@ metadata:
   name: px-central-ui
   namespace: px-central
   annotations:
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
 spec:
+  ingressClassName: alb
   rules:
   - http:
       paths:

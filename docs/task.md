@@ -116,6 +116,27 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 
    **Expected Result**: All the data should be saved even after deleting the entire application.
 
+
+### UI 
+
+1. **Install PX Cenral and PX Backup**
+
+   **Scenario**: [Install and explore PX Central and PX Backup](./readmes/pxcentral.md).
+
+   **Action**:
+   - Install the UI.
+   - Explore and preform some tasks.
+   - In the **lighthouse** fill out your cluster details
+   <!-- - Add a new cluster:
+        - Cloud Account Name: your name
+        - Access Key: Run again `terraform output`
+        - Secret Key: Run `terraform output s3_user_access_key_secret`
+        - Region: your region
+    Select and add your cluster -->
+
+   **Expected Result**: Explore the capabilities offered by PX-Central and PX-Backup.
+
+
 ### Failure Injection
 
 1. **Simulate Node Failure**
