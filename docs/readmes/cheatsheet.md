@@ -1,4 +1,3 @@
-Certainly! Here's the command cheat sheet formatted for a presentation mode:
 # Command Cheat Sheet
 
 ## pxctl Commands
@@ -41,16 +40,16 @@ Certainly! Here's the command cheat sheet formatted for a presentation mode:
 
 ## storkctl Commands
 
-- **storkctl get applicationbackup**
-  - Gets application backups managed by Stork.
-  ```bash
-  storkctl get applicationbackup
-  ```
-
 - **storkctl get backuplocation**
   - Gets backup locations configured for Stork.
   ```bash
   storkctl get backuplocation
+  ```
+  
+- **storkctl get applicationbackup**
+  - Gets application backups managed by Stork.
+  ```bash
+  storkctl get applicationbackup
   ```
 
 - **storkctl get applicationrestore**
