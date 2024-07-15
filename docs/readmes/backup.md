@@ -51,7 +51,7 @@ Access the Admin URL login with the credentials and upload a post.
 
 Create a [secret](../snippets/backup/s3secret.yaml) with access info about the s3
 ```bash
-kubectl apply -f ../snippets/backup/backuplocation.yaml
+kubectl apply -f ../snippets/backup/s3secret.yaml
 ```
 
 Create a [backup location](../snippets/backup/backuplocation.yaml) in the s3

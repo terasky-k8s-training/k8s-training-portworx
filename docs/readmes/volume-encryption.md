@@ -31,7 +31,7 @@ kubectl apply -f ../snippets/encrypted-pvc/storage-class.yaml
 Create the [deployment](../snippets/encrypted-pvc/deployment.yaml) and [pvc](../snippets/encrypted-pvc/pvc.yaml)
 ```bash
 kubectl apply -f ../snippets/encrypted-pvc/pvc.yaml
-kubectl apply -f ../snippets/encrypted-pvc/deployment.yaml 2>/dev/null
+kubectl apply -f ../snippets/encrypted-pvc/deployment.yaml
 ```
 
 Check that the deployment is ready

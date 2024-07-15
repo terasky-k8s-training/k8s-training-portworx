@@ -56,16 +56,24 @@ Another way we can inspect our cluster and preform administrative tasks is using
 
 #### Install pxctl and storkctl
 
-For pxctl:
+For **pxctl**:
 ```bash
+# Install kube-pxc
+curl -LO https://github.com/portworx/pxc/releases/download/v0.35.0/pxc-v0.35.0.darwin.arm64.tar.gz # Change to your os in https://github.com/portworx/pxc/releases
+tar -zxvf pxc-v0.35.0.darwin.arm64.tar.gz
+sudo mv pxc/kubectl-pxc /usr/local/bin/
+sudo chmod +x /usr/local/bin/kubectl-pxc 
+rm -fr pxc
+
+# Install pxctl
 cp ./snippets/pxctl /usr/local/bin/pxctl
 chmod +x /usr/local/bin/pxctl
 ```
 
-For storkctl:
+For **storkctl**:
 ```bash
 STORK_POD=$(kubectl get pods -n kube-system -l name=stork -o jsonpath='{.items[0].metadata.name}')
-kubectl cp -n  "$PORTWORX_NS" $STORK_POD:/storkctl/linux/storkctl ./storkctl
+kubectl cp -n kube-system $STORK_POD:/storkctl/linux/storkctl ./storkctl
 mv ./storkctl /usr/local/bin/storkctl
 chmod +x /usr/local/bin/storkctl
 ```

@@ -9,8 +9,8 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 - A running Kubernetes cluster with [Portworx installed](./prerequisites.md).
   
   **Action**: 
-  - namespace=kube-system
-  - version=3.0
+  - Namespace: kube-system
+  - Version: 3.0
 
 ---
 
@@ -36,11 +36,11 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
         To install:
         ```bash
         helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update
-        helm upgrade -i wordpress bitnami/wordpress -n wordpress --create-namespace --set global.storageClass=<name-of-your-encrypted-storageclass>
+        helm upgrade -i wordpress bitnami/wordpress -n wordpress --create-namespace --set global.storageClass=<name-of-your-encrypted-portworx-storageclass>
         ```
-   - Verify that the created PVC is dynamically provisioned.
+   - Verify that the created PVC is dynamically provisioned and the application is starting and you can access it.
 
-   **Expected Result**: Dynamic provisioning of PVCs is functioning correctly. The PVC should be bound and the volume should be created.
+   **Expected Result**: Dynamic provisioning of PVCs is functioning correctly. The PVC should be bound and the application is working.
 
 
 3. **Shared Volume (ReadWriteMany)**
@@ -48,8 +48,9 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    **Scenario**: Mount the same volume in different PODs at the same time.
 
    **Action**:
-   - Scale up the wordpress application to 4 pods.
-   - Make sure the application keeps using the pvc even though 4 pods are using it.
+   - Scale up the wordpress application to 2 pods.
+   - Make sure the application keeps using the pvc even though multiple pods are using it.
+   - Upload a post by accessing /admin, example [here](./readmes/backup.md)
 
    **Expected Result**: Data is written simultaneously from different pods.
 
@@ -61,7 +62,9 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    **Scenario**: Increase the volume size by [patching the PVC spec](./readmes/dynamic-provision.md).
 
    **Action**:
-   - Edit the PVC used by WordPress to request more storage.
+   - Patch the PVC used by WordPress to request more storage.
+        - Name: data-wordpress-mariadb-0
+        - Size: 10Gi
    - Verify that the volume has been resized.
    - Inspect the volume to see more information about it.
    - Make sure the file system of the pod also got resized (by using df -h).
@@ -80,38 +83,38 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    **Expected Result**: The volume capacity increases automatically when the set threshold is reached.
 
 
-3. **Scale up a Storage Pool**
-
-   **Scenario**: Increase the pool size by adding disks.
-
-   **Action**:
-   - Add new disks to the Portworx storage pool.
-   - Verify that the drives are added to the storage pool.
-
-   **Expected Result**: The storage pool size increases as new disks are added.
-
-
-4. **Scale out a Storage Cluster**
-
-   **Scenario**: Add a new node to the storage cluster.
-
-   **Action**:
-   - Add a new node to the Portworx cluster.
-   - Verify that PX automatically installs and increases total storage capacity.
-
-   **Expected Result**: The new node is added and storage capacity is increased.
-
-
-5. **Solution Lifecycle**
+3. **Solution Lifecycle**
 
    **Scenario**: Upgrade the Portworx version in the cluster.
 
    **Action**:
-   - Upgrade the Portworx version.
+   - [Upgrade the Portworx version](https://docs.portworx.com/poc/Maintenance_Upgrade-Portworx).
+        - Version: 3.1.2
+        - Namespace: kube-system
    - Verify that the upgrade was successful and no issues are detected for running applications.
+   - Make sure the Wordpress application and data are not harmed.
 
    **Expected Result**: The Portworx version is upgraded successfully without any issues.
 
+### Backup
+
+1. **Application Backup**
+
+   **Scenario**: [Backup the Wordpress application to an s3](./readmes/backup.md).
+
+   **Action**:
+   - If you didn't already, upload a post.
+   - Create all the resources neccessary for backuping application to s3.
+   - Backup the application - Track the upload and then inspect the s3.
+   - Delete completely the wordpress application and reinstall it.
+        - ```bash
+          helm delete wordpress -n wordpress
+          kubectl delete pvc -n wordpress data-wordpress-mariadb-0
+          ```
+    - Restore the application and wait for it to be ready.
+    - Look for your post
+
+   **Expected Result**: All the data should be saved even after deleting the entire application.
 
 ### Failure Injection
 
