@@ -12,7 +12,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
   - namespace=kube-system
   - version=3.0
 
---
+---
 
 ### Tasks
 
@@ -25,6 +25,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
     - Create a secure [storage class](./snippets/encrypted-pvc/storage-class.yaml)
 
     **Expected Result**: A secure storage class that will be used as the storage class of Wordpress.
+
 
 2. **Dynamically Provision Volumes**
 
@@ -40,6 +41,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    - Verify that the created PVC is dynamically provisioned.
 
    **Expected Result**: Dynamic provisioning of PVCs is functioning correctly. The PVC should be bound and the volume should be created.
+
 
 3. **Shared Volume (ReadWriteMany)**
 
@@ -66,6 +68,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 
    **Expected Result**: The volume size is increased without downtime.
 
+
 2. **Automatically Grow a Volume**
 
    **Scenario**: Configure an [Autopilot](./readmes/dynamic-provision.md) rule to expand storage claims.
@@ -75,6 +78,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    - Verify that volume capacity is increased according to set rules.
 
    **Expected Result**: The volume capacity increases automatically when the set threshold is reached.
+
 
 3. **Scale up a Storage Pool**
 
@@ -97,6 +101,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 
    **Expected Result**: The new node is added and storage capacity is increased.
 
+
 5. **Solution Lifecycle**
 
    **Scenario**: Upgrade the Portworx version in the cluster.
@@ -106,7 +111,6 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    - Verify that the upgrade was successful and no issues are detected for running applications.
 
    **Expected Result**: The Portworx version is upgraded successfully without any issues.
-
 
 
 ### Failure Injection
@@ -122,6 +126,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    - Inspect again the volume.
 
    **Expected Result**: The DB restarts on a secondary node without data loss.
+
 
 2. **Application HA**
 
