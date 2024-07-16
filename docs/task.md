@@ -19,14 +19,14 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
 1. **Cluster-wide Encryption**  
 
     **Scenario**: Create [Cluster-Wide Secret](./readmes/volume-encryption.md) for Encryption Demonstration
-
+   
     **Action**:
     - Create a cluster-wide secret to showcase the encryption capability of Portworx.
     - Create a secure [storage class](./snippets/encrypted-pvc/storage-class.yaml)
          - allowVolumeExpansion: true
          - repl: 2
          - secure: true
-         
+
     **Expected Result**: A secure storage class that will be used as the storage class of Wordpress.
 
 

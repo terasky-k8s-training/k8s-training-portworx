@@ -31,12 +31,13 @@ In this lab, we will create an EKS cluster and install Portworx on it. We will p
     terraform delete --auto-approve
     ```
 
-- **docs**: Contains all the information you might need to perform the tasks. [Link here](./docs)
+- **docs**: Contains most the information you might need to perform the tasks. [Link here](./docs)
 
-## Links
+## Importent Links
 
 - [Presentation Slide Show](https://docs.google.com/presentation/d/1SedcdKuFjbEjq9rVSihKq35ZrWZN5ojM/edit?usp=sharing&ouid=114711336959106187462&rtpof=true&sd=true)
 - [Portworx Documentation](https://docs.portworx.com/poc)
+- [Assignment](./docs/task.md)
 
 
 ## Course Completion
