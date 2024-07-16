@@ -23,7 +23,10 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
     **Action**:
     - Create a cluster-wide secret to showcase the encryption capability of Portworx.
     - Create a secure [storage class](./snippets/encrypted-pvc/storage-class.yaml)
-
+         - allowVolumeExpansion: true
+         - repl: 2
+         - secure: true
+         
     **Expected Result**: A secure storage class that will be used as the storage class of Wordpress.
 
 
@@ -64,7 +67,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    **Action**:
    - Patch the PVC used by WordPress to request more storage.
         - Name: data-wordpress-mariadb-0
-        - Size: 10Gi
+        - Size: 8Gi --> 10Gi
    - Verify that the volume has been resized.
    - Inspect the volume to see more information about it.
    - Make sure the file system of the pod also got resized (by using df -h).
