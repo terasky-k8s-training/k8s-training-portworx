@@ -147,7 +147,7 @@ Demonstrate various Portworx features by performing tasks related to dynamic pro
    **Scenario**: Take down a single storage node in the cluster.
 
    **Action**:
-   - Inspect the volume of the application and identify the node its currently running on (use storkctl).
+   - Inspect the volume of the application and identify the node its currently running on (use pxctl).
    - Simulate a [node failure](./readmes/HA.md) by shutting down the previously discorverd node that the application currently running on.
    - Verify that the WordPress DB restarts on a secondary node with all the data.
    - Inspect again the volume.
